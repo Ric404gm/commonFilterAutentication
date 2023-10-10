@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.2</version>
+				<version>3.1.2</version>
 		<relativePath/>
 	</parent>
 	<groupId>com.eiyu.common</groupId>
@@ -130,6 +130,14 @@
 
 	<build>
 		<plugins>
+		<!-- For regular jar implementation: https://stackoverflow.com/questions/53679361/cant-import-classes-intellij-showing-boot-inf-prefix-and-it-seems-to-be-relate  -->
+		<plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+                <classifier>exec</classifier>
+            </configuration>
+        </plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -146,3 +154,4 @@
 	</build>
 
 </project>
+
