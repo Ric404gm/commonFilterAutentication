@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
@@ -28,6 +29,8 @@ public class CommonFilter extends GenericFilterBean  {
     @Value("${asp.login.defualt.user}") 
 	private String secret ;
 
+    @Autowired
+    private ContainerTokenUserComponent containerTokenUserComponent;
 
     
 
@@ -63,6 +66,8 @@ public class CommonFilter extends GenericFilterBean  {
             {
                 Claims tokenClaims =    this.getAllClaimsFromToken(optionalHeader.get().substring(7));
                 LOGGER.info( " * Claims Token  *: {} " ,tokenClaims.toString() );
+                this.containerTokenUserComponent.setCurrentUser( String.valueOf(tokenClaims.get("current_token_user")));
+
             }
             catch (JwtException e){
                 LOGGER.error(" Ha ocurrido un error al autenticar : ", e);
